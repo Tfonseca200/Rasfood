@@ -1,12 +1,14 @@
 package br.com.rasmo.restaurante.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import br.com.rasmo.restaurante.dao.ClienteDao;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "enderecos")
-public class Enderecos {
+public class Endereco {
 
     @Id
     private String cep;
@@ -17,7 +19,14 @@ public class Enderecos {
 
     private String cidade;
 
-    public Enderecos(String cep, String complemento, String rua, String cidade) {
+    @ManyToOne
+    private Cliente cliente;
+
+    public Endereco(){
+
+    }
+
+    public Endereco(String cep, String complemento, String rua, String cidade) {
         this.cep = cep;
         this.complemento = complemento;
         this.rua = rua;
@@ -54,5 +63,23 @@ public class Enderecos {
 
     public void setCidade(String cidade) {
         this.cidade = cidade;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "cep='" + cep + '\'' +
+                ", complemento='" + complemento + '\'' +
+                ", rua='" + rua + '\'' +
+                ", cidade='" + cidade + '\'' +
+                '}';
     }
 }

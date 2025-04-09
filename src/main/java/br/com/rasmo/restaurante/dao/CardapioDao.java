@@ -15,13 +15,12 @@ public class CardapioDao {
         this.entityManager = entityManager;
     }
 
-    public void cadastra(Cardapio prato){
+    public void cadastrar(Cardapio prato){
         this.entityManager.persist(prato);
-        System.out.println("Entidade cadastrada: " + prato);
     }
 
     public Cardapio consultarPorId(final Integer id){
-        return this.entityManager.find(Cardapio.class, id );
+        return this.entityManager.find(Cardapio.class, id);
     }
 
     public List<Cardapio> consultarPorValor(final BigDecimal filtro){

@@ -7,13 +7,14 @@ import br.com.rasmo.restaurante.entity.Categoria;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-public class CarregarDados {
+public class CarregarDadosUtil {
 
 
-    public void cadastrarCategoria(EntityManager entityManager){
-
-        entityManager.getTransaction().begin();
+    public static void cadastrarCategoria(EntityManager entityManager){
+        //entityManager.getTransaction().begin();
         Categoria categoria1 = new Categoria("Prato principal");
         Categoria categoria2 = new Categoria("Sobremesa");
         Categoria categoria3 = new Categoria("Sobremesa");
@@ -26,21 +27,22 @@ public class CarregarDados {
         entityManager.clear();
     }
 
-    public void cadastrarCardapio(EntityManager entityManager, Categoria categoria){
-        entityManager.getTransaction().begin();
-        Cardapio cardapio1 = new Cardapio("Macarrão", "Macarrão ao molho italiano", true, BigDecimal.valueOf(100), categoria);
-        Cardapio cardapio2 = new Cardapio("Picanha", "Picanha do lula", true, BigDecimal.valueOf(50.99), categoria  );
-        Cardapio cardapio3 = new Cardapio("Largatixa", "Largatixa da malasia", true, BigDecimal.valueOf(79.00), categoria  );
-        Cardapio cardapio4 = new Cardapio("Linguiça", "Linguiça do boi", true, BigDecimal.valueOf(100), categoria  );
-        Cardapio cardapio5 = new Cardapio("Cordeiro", "Cordeiro da africa", true, BigDecimal.valueOf(90), categoria  );
+    public static List<Cardapio> cadastrarProdutosCardapio(){
 
-        CardapioDao cardapioDao = new CardapioDao(entityManager);
-        cardapioDao.cadastra(cardapio1);
-        cardapioDao.cadastra(cardapio2);
-        cardapioDao.cadastra(cardapio3);
-        cardapioDao.cadastra(cardapio4);
-        cardapioDao.cadastra(cardapio5);
-        entityManager.flush();
-        entityManager.clear();
+        Categoria categoria = new Categoria("Prato principal"); //categoriaDao.consultarTodasCategorias();
+        List<Cardapio> cardapios = new ArrayList<>();
+        Cardapio cardapio1 = new Cardapio("Macarrão", "Macarrão ao molho italiano", true, categoria);
+        Cardapio cardapio2 = new Cardapio("Picanha", "Picanha do lula", true, categoria);
+        Cardapio cardapio3 = new Cardapio("Largatixa", "Largatixa da malasia", true, categoria);
+        Cardapio cardapio4 = new Cardapio("Linguiça", "Linguiça do boi", true, categoria);
+        Cardapio cardapio5 = new Cardapio("Cordeiro", "Cordeiro da africa", true, categoria);
+
+        cardapios.add(cardapio1);
+        cardapios.add(cardapio2);
+        cardapios.add(cardapio3);
+        cardapios.add(cardapio4);
+        cardapios.add(cardapio5);
+
+        return cardapios;
     }
 }

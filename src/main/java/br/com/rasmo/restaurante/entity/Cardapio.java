@@ -5,6 +5,7 @@ import org.hibernate.annotations.ManyToAny;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "cardapio")
@@ -29,16 +30,19 @@ public class Cardapio {
     private LocalDateTime dataRegistro = LocalDateTime.now();
 
 
-    public Cardapio() {
+    public Cardapio(String nome , String decricao, boolean disponibilidade, Categoria categoria) {
+        this.nome = nome;
+        this.decricao = decricao;
+        this.disponibilidade = disponibilidade;
+        this.categoria = categoria;
     }
 
-    public Cardapio(String nome, String decricao, boolean disponibilidade, BigDecimal valor, Categoria categoria, LocalDateTime dataRegistro) {
+    public Cardapio(String nome, String decricao, boolean disponibilidade, BigDecimal valor, Categoria categoria) {
         this.nome = nome;
         this.decricao = decricao;
         this.disponibilidade = disponibilidade;
         this.valor = valor;
         this.categoria = categoria;
-        this.dataRegistro = dataRegistro;
     }
 
     public Integer getId() {
