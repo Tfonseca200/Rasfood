@@ -1,10 +1,6 @@
 package br.com.rasmo.restaurante.entity;
 
-import br.com.rasmo.restaurante.dao.ClienteDao;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "enderecos")
@@ -19,7 +15,7 @@ public class Endereco {
 
     private String cidade;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     public Endereco(){

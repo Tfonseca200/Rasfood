@@ -17,34 +17,34 @@ public class OrdemService {
         EntityManager entityManager = JPAUtil.entityManagerRasfood();
         entityManager.getTransaction().begin();
 
-        CardapioDao cardapioDao = new CardapioDao(entityManager);
-        ClienteDao clienteDao = new ClienteDao(entityManager);
-        OrdemDao ordemDao = new OrdemDao(entityManager);
-        CategoriaDao categoriaDao = new CategoriaDao(entityManager);
-
         List<Cardapio> cardapios = CarregarDadosUtil.cadastrarProdutosCardapio();
-        Endereco endereco = new Endereco("73643872", "casa", "Avenida paulista", "São Paulo");
-        Cliente thiago = new Cliente("839749378", "Thiago F");
-        clienteDao.cadastrar(thiago);
-        thiago.addEndereco(endereco);
-        Ordem ordem = new Ordem(thiago);
-
-
+        CategoriaDao categoriaDao = new CategoriaDao(entityManager);
         categoriaDao.cadastrar(cardapios.get(1).getCategoria());
         categoriaDao.cadastrar(cardapios.get(2).getCategoria());
+
+
+        CardapioDao cardapioDao = new CardapioDao(entityManager);
         cardapioDao.cadastrar(cardapios.get(1));
         cardapioDao.cadastrar(cardapios.get(2));
 
-        OrdensCardapio ordensCardapio1 = new OrdensCardapio(cardapios.get(1), BigDecimal.valueOf(90), 6);
-        OrdensCardapio ordensCardapio2 = new OrdensCardapio(cardapios.get(2), BigDecimal.valueOf(150),  5);
+        ClienteDao clienteDao = new ClienteDao(entityManager);
+        Cliente thiago = new Cliente("839749378", "Thiago F");
+        clienteDao.cadastrar(thiago);
+        Endereco endereco = new Endereco("73643872", "casa", "Avenida paulista", "São Paulo");
+        thiago.addEndereco(endereco);
 
-        ordem.addOrdemCardapio(ordensCardapio1);
-        ordem.addOrdemCardapio(ordensCardapio2);
+        OrdemDao ordemDao = new OrdemDao(entityManager);
+        Ordem ordem = new Ordem(thiago);
         ordemDao.cadastrar(ordem);
 
 
-        System.out.println(ordem);
-        System.out.println(ordemDao.consultarItemsMaisVendidos());
+        OrdensCardapio ordensCardapio1 = new OrdensCardapio(cardapios.get(1), BigDecimal.valueOf(90), 6);
+        OrdensCardapio ordensCardapio2 = new OrdensCardapio(cardapios.get(2), BigDecimal.valueOf(150),  5);
+        ordem.addOrdemCardapio(ordensCardapio1);
+        ordem.addOrdemCardapio(ordensCardapio2);
+
+
+        System.out.println("Consultar por nome: " + clienteDao.consultarPorNome("T"));
         entityManager.getTransaction().commit();
         entityManager.close();
 
