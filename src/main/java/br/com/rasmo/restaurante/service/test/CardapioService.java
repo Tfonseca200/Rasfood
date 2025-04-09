@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.util.List;
 
+/*
 public class CardapioService {
 
     public static void main(String[] args) {
@@ -21,23 +22,23 @@ public class CardapioService {
         // List<Cardapio> cardapiosRetorno = cardapioDao.consultarPorValor(BigDecimal.valueOf(100.00));
         //cardapiosRetorno.stream().forEach(res -> System.out.println("Lista de produtos de valor" + res));
 
-        Cardapio cardapio = cardapioDao.consultarPorNome("saLma");
+        Cardapio cardapio = cardapioDao.consultarPorNome("Salmao");
         System.out.println("O resulta da consulta do nome: " + cardapio);
         entityManager.close();
 
     }
 
-    private static Categoria cadastraCategoria(EntityManager entityManager){
+    public static Categoria cadastraCategoria(EntityManager entityManager){
         CategoriaDao categoriaDao = new CategoriaDao(entityManager);
         Categoria pratoPrincipal = new Categoria("Prato principal");
         entityManager.getTransaction().begin();
         categoriaDao.cadastrar(pratoPrincipal);
-        entityManager.getTransaction().commit();
-        entityManager.clear();
+        entityManager.flush();
+        entityManager.close();
         return pratoPrincipal;
     }
 
-    private static void cadastrarProdutoCardapio(EntityManager entityManager, Categoria categoria){
+    public static void cadastrarProdutoCardapio(EntityManager entityManager, Categoria categoria){
 
         Cardapio risoto = new Cardapio();
         risoto.setNome("Risoto");
@@ -70,7 +71,7 @@ public class CardapioService {
 
         CardapioDao cardapioDao = new CardapioDao(entityManager);
         entityManager.getTransaction().begin();
-        cardapioDao.cadastra(risoto);
+        cardapioDao.cadastrar(risoto);
         entityManager.flush();
         cardapioDao.cadastra(salmao);
         entityManager.flush();
@@ -82,8 +83,7 @@ public class CardapioService {
         //System.out.println("Prato dois: " + cardapioDao.consultar(2));
         //cardapioDao.consutarTodos().forEach(elemento -> System.out.println("O prato consultado foi:" + elemento));
 
-        entityManager.getTransaction().commit();
-        entityManager.clear();
+        entityManager.close();
 
 
 
@@ -92,3 +92,5 @@ public class CardapioService {
 
     }
 }
+
+ */
