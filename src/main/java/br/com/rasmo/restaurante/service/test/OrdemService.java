@@ -7,7 +7,6 @@ import br.com.rasmo.restaurante.util.JPAUtil;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 public class OrdemService {
@@ -44,7 +43,9 @@ public class OrdemService {
         ordem.addOrdemCardapio(ordensCardapio2);
 
 
-        System.out.println("Consultar por nome: " + clienteDao.consultarPorNome("T"));
+        EnderecoDao enderecoDao = new EnderecoDao(entityManager);
+        //System.out.println("Consultar por nome: " + clienteDao.consultarPorNome("T"));
+        System.out.println(enderecoDao.consultaClientes("são paulo", "avenida paulista"));
         entityManager.getTransaction().commit();
         entityManager.close();
 
