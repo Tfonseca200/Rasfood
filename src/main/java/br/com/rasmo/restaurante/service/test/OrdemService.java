@@ -27,7 +27,7 @@ public class OrdemService {
         cardapioDao.cadastrar(cardapios.get(2));
 
         ClienteDao clienteDao = new ClienteDao(entityManager);
-        Cliente thiago = new Cliente("839749378", "Thiago F");
+        Cliente thiago = new Cliente("839749378","thi@gmail.com", "Thiago F", "11","9782628726" );
         clienteDao.cadastrar(thiago);
         Endereco endereco = new Endereco("73643872", "casa", "Avenida paulista", "São Paulo");
         thiago.addEndereco(endereco);
@@ -47,6 +47,9 @@ public class OrdemService {
         //System.out.println("Consultar por nome: " + clienteDao.consultarPorNome("T"));
         System.out.println(enderecoDao.consultaClientes(null, "AveNidA paUliSta"));
         System.out.println(enderecoDao.consultaClientesUsandoCliteria(null, "AveNidA paUliSta"));
+
+
+        System.out.println(clienteDao.consultarPorId(new ClienteId("thi@gmail.com", "839749378")));
         entityManager.getTransaction().commit();
         entityManager.close();
 

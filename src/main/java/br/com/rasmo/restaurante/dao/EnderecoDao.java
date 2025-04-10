@@ -49,7 +49,7 @@ public class EnderecoDao {
 
     // Consulta dinamica com cidade e rua mesmo seum um deles for nulo //
     public List<ClienteVo> consultaClientes(String cidade, String rua) {
-        String jpql = "SELECT new br.com.rasmo.restaurante.vo.ClienteVo(e.cliente.cpf, e.cliente.nome) FROM Endereco e " +
+        String jpql = "SELECT new br.com.rasmo.restaurante.vo.ClienteVo(e.cliente.clienteId.cpf, e.cliente.nome) FROM Endereco e " +
                 "WHERE 1=1";
         if (Objects.nonNull(cidade)) {
             jpql = jpql.concat("AND UPPER(e.cidade) = UPPER(:cidade)");
@@ -73,7 +73,7 @@ public class EnderecoDao {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
         CriteriaQuery<ClienteVo> criteriaQuery = builder.createQuery(ClienteVo.class);
         Root<Endereco> root = criteriaQuery.from(Endereco.class);
-        criteriaQuery.multiselect(root.get("cliente").get("cpf"), root.get("cliente").get("nome"));
+        criteriaQuery.multiselect(root.get("cliente").get("clienteId").get("cpf"), root.get("cliente").get("nome"));
         Predicate predicate = builder.and();
 
         if (Objects.nonNull(cidade)) {

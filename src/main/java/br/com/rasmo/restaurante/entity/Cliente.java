@@ -1,17 +1,21 @@
 package br.com.rasmo.restaurante.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente {
+public class Cliente implements Serializable {
 
-    @Id
-    private String cpf;
+    @EmbeddedId
+    private ClienteId clienteId;
 
     private String nome;
+
+    @Embedded
+    private Contato contato;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.PERSIST)
     private List<Endereco> enderecoList = new ArrayList<>();
@@ -20,8 +24,9 @@ public class Cliente {
     public Cliente() {
     }
 
-    public Cliente(String cpf, String nome) {
-        this.cpf = cpf;
+    public Cliente(String cpf, String email, String nome, String ddd, String telefone) {
+        this.clienteId = new ClienteId(email ,cpf);
+        this.contato = new Contato(ddd, telefone);
         this.nome = nome;
     }
 
@@ -31,12 +36,21 @@ public class Cliente {
     }
 
     public String getCpf() {
-        return cpf;
+        return clienteId.getCpf();
     }
 
     public void setCpf(String cpf) {
-        this.cpf = cpf;
+        this.clienteId.setCpf(cpf);
     }
+
+    public String getEmail() {
+        return clienteId.getEmail();
+    }
+
+    public void setEmail(String email) {
+        this.clienteId.setEmail(email);
+    }
+
 
     public String getNome() {
         return nome;
@@ -54,13 +68,23 @@ public class Cliente {
         this.enderecoList = endereco;
     }
 
+    public Contato getContato() {
+        return contato;
+    }
+
+    public void setContato(Contato contato) {
+        this.contato = contato;
+    }
 
     @Override
     public String toString() {
         return "Cliente{" +
-                "cpf='" + cpf + '\'' +
+                "cpf='" + clienteId.getCpf() + '\'' +
+                "email='" + clienteId.getEmail()+ '\'' +
                 ", nome='" + nome + '\'' +
-                ", endereco=" + enderecoList +
+                ", ddd=" + contato.getDdd() +
+                ", telefone=" + contato.getTelefone() +
+                ", enderecoList=" + enderecoList +
                 '}';
     }
 }
