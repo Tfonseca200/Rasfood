@@ -45,7 +45,8 @@ public class OrdemService {
 
         EnderecoDao enderecoDao = new EnderecoDao(entityManager);
         //System.out.println("Consultar por nome: " + clienteDao.consultarPorNome("T"));
-        System.out.println(enderecoDao.consultaClientes("são paulo", "avenida paulista"));
+        System.out.println(enderecoDao.consultaClientes(null, "AveNidA paUliSta"));
+        System.out.println(enderecoDao.consultaClientesUsandoCliteria(null, "AveNidA paUliSta"));
         entityManager.getTransaction().commit();
         entityManager.close();
 
